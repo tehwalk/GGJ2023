@@ -2,12 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 public class GameManager : MonoBehaviour
 {
     private static GameManager _instance;
     public static GameManager Instance { get { return _instance; } }
     [SerializeField] public SceneIndex nextScene;
+    public int rootsNecessery;
+    private int rootsCut = 0;
+    [SerializeField] private TextMeshProUGUI scoreText;
     // Start is called before the first frame update
     private void Awake()
     {
@@ -17,12 +21,23 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         Cursor.visible = false;
+        UpdateScoreText();
     }
 
     // Update is called once per frame
     void Update()
     {
 
+    }
+
+    public void CutRoot()
+    {
+        rootsCut++;
+        UpdateScoreText();
+        if(rootsCut>=rootsNecessery)
+        {
+            Debug.Log("You won!!");
+        }
     }
 
     public void NextLevel()
@@ -33,5 +48,10 @@ public class GameManager : MonoBehaviour
     public void ResetScene()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+
+    void UpdateScoreText()
+    {
+        scoreText.text = rootsCut.ToString() + " / " + rootsNecessery.ToString();
     }
 }

@@ -25,12 +25,15 @@ public class PlayerMovement : MonoBehaviour
     {
         mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         Debug.DrawLine(transform.position, mousePos);
+        lineRenderer.SetPosition(0, new Vector3(transform.position.x, transform.position.y, 0));
+        lineRenderer.SetPosition(1, new Vector3(mousePos.x, mousePos.y, 0));
         if (Input.GetMouseButtonDown(0) && isMoving == false)
         {
             PickPosition();
         }
         if (isMoving == true)
         {
+            lineRenderer.enabled = false;
             rigid2D.position = Vector2.MoveTowards(rigid2D.position, target, speed * Time.deltaTime);
             /*if (transform.position == target)
             {
@@ -39,8 +42,7 @@ public class PlayerMovement : MonoBehaviour
         }
         else
         {
-            lineRenderer.SetPosition(0, new Vector3(transform.position.x, transform.position.y, 0));
-            lineRenderer.SetPosition(1, new Vector3(mousePos.x, mousePos.y, 0));
+            lineRenderer.enabled = true;
         }
 
     }
@@ -75,6 +77,7 @@ public class PlayerMovement : MonoBehaviour
         else if (other.gameObject.layer == hitableLayerValue)
         {
             Debug.Log("bich");
+            GameManager.Instance.CutRoot();
             Destroy(other.gameObject);
         }
     }
