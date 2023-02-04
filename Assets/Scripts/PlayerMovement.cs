@@ -35,10 +35,10 @@ public class PlayerMovement : MonoBehaviour
         {
             lineRenderer.enabled = false;
             rigid2D.position = Vector2.MoveTowards(rigid2D.position, target, speed * Time.deltaTime);
-            /*if (transform.position == target)
+            if(VectorAppox(rigid2D.position, target))
             {
                 isMoving = false;
-            }*/
+            }
         }
         else
         {
@@ -66,8 +66,8 @@ public class PlayerMovement : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Ground"))
         {
-            isMoving = false;
-            other.gameObject.layer = defaultLayerValue;
+            //isMoving = false;
+            //other.gameObject.layer = defaultLayerValue;
         }
         else if (other.gameObject.CompareTag("Death"))
         {
@@ -86,7 +86,12 @@ public class PlayerMovement : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Ground"))
         {
-            other.gameObject.layer = sittingLayerValue;
+            //other.gameObject.layer = sittingLayerValue;
         }
+    }
+
+    bool VectorAppox(Vector2 a, Vector2 b)
+    {
+        return Mathf.Approximately(a.x, b.x) && Mathf.Approximately(a.y, b.y);
     }
 }
