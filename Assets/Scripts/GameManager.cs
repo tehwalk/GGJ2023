@@ -6,6 +6,7 @@ public class GameManager : MonoBehaviour
 {
     private static GameManager _instance;
     public static GameManager Instance { get { return _instance; } }
+    [SerializeField] public SceneIndex nextScene;
     // Start is called before the first frame update
     private void Awake()
     {
@@ -14,12 +15,17 @@ public class GameManager : MonoBehaviour
     }
     void Start()
     {
-       Cursor.visible = false;
+        Cursor.visible = false;
     }
 
     // Update is called once per frame
     void Update()
     {
 
+    }
+
+    public void NextLevel()
+    {
+        
     }
 }
