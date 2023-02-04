@@ -5,14 +5,18 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     //public LayerMask def, ignore;
-    public int layerDefalut = 0, layerIgnore = 3;
-    public LayerMask ignoreMe;
+    //public int layerDefalut = 0;
+    public LayerMask sittingLayer, defaultLayer, hitableLayer;
+    public int sittingLayerValue, defaultLayerValue, hitableLayerValue;
     public float speed = 3;
     LineRenderer lineRenderer;
-    Vector3 mousePos;
+    Rigidbody2D rigidbody2D;
+    Vector3 mousePos, target;
+    bool isMoving = false;
     // Start is called before the first frame update
     void Start()
     {
+        rigidbody2D = GetComponent<Rigidbody2D>();
         lineRenderer = GetComponent<LineRenderer>();
     }
 
@@ -21,34 +25,57 @@ public class PlayerMovement : MonoBehaviour
     {
         mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         Debug.DrawLine(transform.position, mousePos);
-        
-        if (Input.GetMouseButtonDown(0))
+        lineRenderer.SetPosition(0, new Vector3(transform.position.x, transform.position.y, 0));
+        lineRenderer.SetPosition(1, new Vector3(mousePos.x, mousePos.y, 0));
+        if (Input.GetMouseButtonDown(0) && isMoving == false)
         {
             PickPosition();
+        }
+        if (isMoving == true)
+        {
+            rigidbody2D.position = Vector2.MoveTowards(rigidbody2D.position, target, speed * Time.deltaTime);
+            /*if (transform.position == target)
+            {
+                isMoving = false;
+            }*/
         }
 
     }
 
     void PickPosition()
     {
-        var sit = Physics2D.Linecast(transform.position, mousePos, ~ignoreMe);
+        var sit = Physics2D.Linecast(transform.position, mousePos, sittingLayer);
         //var sit = Physics2D.Raycast()
         if (sit.collider != null)
         {
             Debug.Log(sit.point);
             //transform.position = Vector2.MoveTowards(transform.position, sit.point, speed * Time.deltaTime);
-            transform.position = sit.point;
+            //transform.position = sit.point;
+            target = sit.point;
+            isMoving = true;
         }
 
     }
 
     private void OnCollisionEnter2D(Collision2D other)
     {
-        other.gameObject.layer = ignoreMe.value;
+        if (other.gameObject.CompareTag("Ground")) 
+        {
+            isMoving = false;
+            other.gameObject.layer = defaultLayerValue;
+        }
+        else if (other.gameObject.layer == hitableLayerValue)
+        {
+            Debug.Log("bich");
+            Destroy(other.gameObject);
+        }
     }
 
     private void OnCollisionExit2D(Collision2D other)
     {
-        other.gameObject.layer = layerDefalut;
+        if (other.gameObject.CompareTag("Ground")) 
+        {
+            other.gameObject.layer = sittingLayerValue;
+        }
     }
 }
