@@ -10,13 +10,13 @@ public class PlayerMovement : MonoBehaviour
     public int sittingLayerValue, defaultLayerValue, hitableLayerValue;
     public float speed = 3;
     LineRenderer lineRenderer;
-    Rigidbody2D rigidbody2D;
+    Rigidbody2D rigid2D;
     Vector3 mousePos, target;
     bool isMoving = false;
     // Start is called before the first frame update
     void Start()
     {
-        rigidbody2D = GetComponent<Rigidbody2D>();
+        rigid2D = GetComponent<Rigidbody2D>();
         lineRenderer = GetComponent<LineRenderer>();
     }
 
@@ -25,19 +25,22 @@ public class PlayerMovement : MonoBehaviour
     {
         mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         Debug.DrawLine(transform.position, mousePos);
-        lineRenderer.SetPosition(0, new Vector3(transform.position.x, transform.position.y, 0));
-        lineRenderer.SetPosition(1, new Vector3(mousePos.x, mousePos.y, 0));
         if (Input.GetMouseButtonDown(0) && isMoving == false)
         {
             PickPosition();
         }
         if (isMoving == true)
         {
-            rigidbody2D.position = Vector2.MoveTowards(rigidbody2D.position, target, speed * Time.deltaTime);
+            rigid2D.position = Vector2.MoveTowards(rigid2D.position, target, speed * Time.deltaTime);
             /*if (transform.position == target)
             {
                 isMoving = false;
             }*/
+        }
+        else
+        {
+            lineRenderer.SetPosition(0, new Vector3(transform.position.x, transform.position.y, 0));
+            lineRenderer.SetPosition(1, new Vector3(mousePos.x, mousePos.y, 0));
         }
 
     }
@@ -59,10 +62,15 @@ public class PlayerMovement : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D other)
     {
-        if (other.gameObject.CompareTag("Ground")) 
+        if (other.gameObject.CompareTag("Ground"))
         {
             isMoving = false;
             other.gameObject.layer = defaultLayerValue;
+        }
+        else if (other.gameObject.CompareTag("Death"))
+        {
+            Destroy(gameObject);
+            GameManager.Instance.ResetScene();
         }
         else if (other.gameObject.layer == hitableLayerValue)
         {
@@ -73,7 +81,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void OnCollisionExit2D(Collision2D other)
     {
-        if (other.gameObject.CompareTag("Ground")) 
+        if (other.gameObject.CompareTag("Ground"))
         {
             other.gameObject.layer = sittingLayerValue;
         }
