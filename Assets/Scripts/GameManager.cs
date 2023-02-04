@@ -8,6 +8,8 @@ public class GameManager : MonoBehaviour
     private static GameManager _instance;
     public static GameManager Instance { get { return _instance; } }
     [SerializeField] public SceneIndex nextScene;
+    public int rootsNecessery;
+    private int rootsCut = 0;
     // Start is called before the first frame update
     private void Awake()
     {
@@ -23,6 +25,15 @@ public class GameManager : MonoBehaviour
     void Update()
     {
 
+    }
+
+    public void CutRoot()
+    {
+        rootsCut++;
+        if(rootsCut>=rootsNecessery)
+        {
+            Debug.Log("You won!!");
+        }
     }
 
     public void NextLevel()
