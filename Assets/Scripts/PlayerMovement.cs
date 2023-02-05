@@ -11,6 +11,7 @@ public class PlayerMovement : MonoBehaviour
     public float speed = 3;
     LineRenderer lineRenderer;
     Rigidbody2D rigid2D;
+    Animator animator;
     Vector3 mousePos, target;
     bool isMoving = false;
     // Start is called before the first frame update
@@ -18,6 +19,7 @@ public class PlayerMovement : MonoBehaviour
     {
         rigid2D = GetComponent<Rigidbody2D>();
         lineRenderer = GetComponent<LineRenderer>();
+        animator = GetComponentInChildren<Animator>();
     }
 
     // Update is called once per frame
@@ -33,6 +35,7 @@ public class PlayerMovement : MonoBehaviour
         }
         if (isMoving == true)
         {
+            
             lineRenderer.enabled = false;
             rigid2D.position = Vector2.MoveTowards(rigid2D.position, target, speed * Time.deltaTime);
             if(VectorAppox(rigid2D.position, target))
@@ -44,7 +47,7 @@ public class PlayerMovement : MonoBehaviour
         {
             lineRenderer.enabled = true;
         }
-
+        animator.SetBool("isMoving", isMoving);
     }
 
     void PickPosition()
@@ -58,6 +61,7 @@ public class PlayerMovement : MonoBehaviour
             //transform.position = sit.point;
             target = sit.point;
             isMoving = true;
+            animator.SetTrigger("Jump");
         }
 
     }

@@ -5753,7 +5753,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 13068830790acf1439b6ad68feda38c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nextScene: 0
+  nextScene: 2
+  rootsNecessery: 0
   hitableLayerValue: 6
   scoreText: {fileID: 1275279587}
 --- !u!4 &674079923
@@ -6324,7 +6325,7 @@ TilemapRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_ChunkSize: {x: 32, y: 32, z: 32}
   m_ChunkCullingBounds: {x: 0, y: 0, z: 0}
   m_MaxChunkCount: 16
@@ -7454,8 +7455,36 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 3382617527102754323, guid: fad4661de252245469a026c1110dd3bb, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 3382617528905680925}
   m_SourcePrefab: {fileID: 100100000, guid: fad4661de252245469a026c1110dd3bb, type: 3}
+--- !u!1 &3382617528905680924 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3382617527102754323, guid: fad4661de252245469a026c1110dd3bb, type: 3}
+  m_PrefabInstance: {fileID: 3382617528905680923}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &3382617528905680925
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3382617528905680924}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 86b2bb03f71582f468666c92bbc98e51, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
 --- !u!1001 &6943687846550454733
 PrefabInstance:
   m_ObjectHideFlags: 0
