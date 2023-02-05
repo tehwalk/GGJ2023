@@ -55,6 +55,7 @@ public class GameManager : MonoBehaviour
         if (rootsCut >= rootsNecessery)
         {
             Debug.Log("You won!!");
+            NextLevel();
         }
     }
 
