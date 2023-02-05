@@ -25,6 +25,7 @@ public class PauseMenuUI : MonoBehaviour {
 	void TogglePanel() {
 		isOpen = !isOpen;
 		basePanel.SetActive(isOpen);
+        GameManager.Instance.TogglePause(isOpen);
 	}
 
 	void RestartGame() => SceneManager.LoadScene("MainMenuScene");

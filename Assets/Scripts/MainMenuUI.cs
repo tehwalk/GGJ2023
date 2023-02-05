@@ -5,20 +5,50 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class MainMenuUI : MonoBehaviour {
-	[SerializeField] Button playButton;
-	//[SerializeField] Button creditsButton;
-	[SerializeField] Button exitButton;
+public class MainMenuUI : MonoBehaviour
+{
+    [SerializeField] Button playButton;
+    //[SerializeField] Button creditsButton;
+    [SerializeField] Button exitButton;
 
-	void Start() {
-		playButton.onClick.AddListener(StartGame);
-		//creditsButton.onClick.AddListener();				
-		exitButton.onClick.AddListener(ExitGame);
-	}
+    public GameObject player;
+    public float speed;
+    bool canMove = false;
+    Vector3 buttonPos;
 
-	void StartGame() => SceneManager.LoadScene((int)SceneIndex.Scene1);
+    void Start()
+    {
+        playButton.onClick.AddListener(StartGame);
+        //creditsButton.onClick.AddListener();				
+        exitButton.onClick.AddListener(ExitGame);
+    }
 
-	//void DisplayCredits() { }
+    private void Update()
+    {
+        if (canMove == true)
+        {
+            player.transform.position = Vector2.MoveTowards(player.transform.position, buttonPos, speed * Time.deltaTime);
+        }
+    }
 
-	void ExitGame() => Application.Quit();
+    void StartGame()
+    {
+        canMove = true;
+        StartCoroutine(PlayerPressesPlay());
+    }
+
+    IEnumerator PlayerPressesPlay()
+    {
+        buttonPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        yield return new WaitUntil(() => VectorAppox(player.transform.position, buttonPos) == true);
+        SceneManager.LoadScene((int)SceneIndex.Scene1);
+    }
+    //void DisplayCredits() { }
+
+    void ExitGame() => Application.Quit();
+
+    bool VectorAppox(Vector2 a, Vector2 b)
+    {
+        return Mathf.Approximately(a.x, b.x) && Mathf.Approximately(a.y, b.y);
+    }
 }
