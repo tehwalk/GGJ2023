@@ -9,6 +9,7 @@ public class PauseMenuUI : MonoBehaviour {
 	[SerializeField] GameObject basePanel;
 	[SerializeField] Button continueButton;
 	[SerializeField] Button quitButton;
+	[SerializeField] AudioClip toggleClip;
 
 	public bool isOpen { get; private set; }
 
@@ -26,6 +27,7 @@ public class PauseMenuUI : MonoBehaviour {
 		isOpen = !isOpen;
 		basePanel.SetActive(isOpen);
         GameManager.Instance.TogglePause(isOpen);
+		AudioManager.instance.PlayInteractionSound(toggleClip, 0.5f);
 	}
 
 	void RestartGame() => SceneManager.LoadScene("MainMenuScene");
