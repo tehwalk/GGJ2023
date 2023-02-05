@@ -51,6 +51,10 @@ MonoBehaviour:
   - {fileID: 1809396284486643642}
   - {fileID: 8733183572543164621}
   - {fileID: 6999798827242920966}
+  rootClips:
+  - {fileID: 8300000, guid: 0a0b6acb0e84892439e981bc22588bf1, type: 3}
+  - {fileID: 8300000, guid: 9928952b53713ee4790f846648587968, type: 3}
+  - {fileID: 8300000, guid: 3299409b1096ab54ea4c72beac9317b7, type: 3}
 --- !u!82 &1809396284486643642
 AudioSource:
   m_ObjectHideFlags: 0
