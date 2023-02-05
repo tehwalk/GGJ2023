@@ -9,7 +9,7 @@ public class GameManager : MonoBehaviour
     private static GameManager _instance;
     public static GameManager Instance { get { return _instance; } }
     [SerializeField] public SceneIndex nextScene;
-    private int rootsNecessery;
+    public int rootsNecessery;
     private int rootsCut = 0;
     public int hitableLayerValue;
     [SerializeField] private TextMeshProUGUI scoreText;
@@ -24,7 +24,7 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         Cursor.visible = false;
-        rootsNecessery = FindGameObjectsInLayer(hitableLayerValue);
+        //rootsNecessery = FindGameObjectsInLayer(hitableLayerValue);
         UpdateScoreText();
     }
 
