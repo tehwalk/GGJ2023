@@ -16,6 +16,8 @@ public class MainMenuUI : MonoBehaviour
     bool canMove;
     Vector3 buttonPos;
 
+    public Animator playerAnim;
+
     void Start()
     {
         Time.timeScale = 1;
@@ -42,6 +44,7 @@ public class MainMenuUI : MonoBehaviour
     IEnumerator PlayerPressesPlay()
     {
         buttonPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        playerAnim.SetTrigger("Jump");
         yield return new WaitUntil(() => VectorAppox(player.transform.position, buttonPos) == true);
         canMove = false;
         SceneManager.LoadScene((int)SceneIndex.Scene1);
