@@ -13,14 +13,16 @@ public class MainMenuUI : MonoBehaviour
 
     public GameObject player;
     public float speed;
-    bool canMove = false;
+    bool canMove;
     Vector3 buttonPos;
 
     void Start()
     {
+        Time.timeScale = 1;
         playButton.onClick.AddListener(StartGame);
         //creditsButton.onClick.AddListener();				
         exitButton.onClick.AddListener(ExitGame);
+        canMove = false;
     }
 
     private void Update()
@@ -41,6 +43,7 @@ public class MainMenuUI : MonoBehaviour
     {
         buttonPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         yield return new WaitUntil(() => VectorAppox(player.transform.position, buttonPos) == true);
+        canMove = false;
         SceneManager.LoadScene((int)SceneIndex.Scene1);
     }
     //void DisplayCredits() { }
