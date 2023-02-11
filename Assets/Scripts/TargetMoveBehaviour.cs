@@ -6,8 +6,8 @@ public class TargetMoveBehaviour : MonoBehaviour
 {
     public Transform[] places;
     Transform nextTarget;
-    public float speed;
-    int i=0;
+    public float speed, waitTime;
+    int i = 0;
     // Start is called before the first frame update
     void Start()
     {
@@ -15,30 +15,25 @@ public class TargetMoveBehaviour : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void LateUpdate()
     {
-        /*if(isMoving==false)
-        {
-            nextTarget = places[Random.Range(0, places.Length)];
-            isMoving = true;
-        }
-        else
-        {
-            transform.position = Vector2.MoveTowards(transform.position, nextTarget.position, speed*Time.deltaTime);
-            if(Vector2.Equals(transform.position, nextTarget.position))
-            {
-                isMoving = false;
-            }
-        }*/
-        StartCoroutine(RandomMove());
+        StartCoroutine(LinearMove());
     }
 
-    IEnumerator RandomMove()
+    IEnumerator LinearMove()
     {
-        int ii = i%places.Length;
+        int ii = i % places.Length;
         nextTarget = places[ii];
-        transform.position = Vector2.MoveTowards(transform.position, nextTarget.position, speed * Time.deltaTime);
+        //transform.position = Vector2.MoveTowards(transform.position, nextTarget.position, speed * Time.deltaTime);
+        transform.position = Vector2.Lerp(transform.position, nextTarget.position, speed * Time.deltaTime);
+        //yield return new WaitUntil(() => VectorAppox(transform.position, nextTarget.position));
         yield return new WaitUntil(() => transform.position == nextTarget.position);
         i++;
+        yield return new WaitForSeconds(waitTime);
+    }
+
+    bool VectorAppox(Vector2 a, Vector2 b)
+    {
+        return Mathf.Approximately(a.x, b.x) && Mathf.Approximately(a.y, b.y);
     }
 }

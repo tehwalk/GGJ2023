@@ -14,6 +14,7 @@ public class PlayerMovement : MonoBehaviour
     Animator animator;
     Vector3 mousePos, target;
     bool isMoving = false;
+    Transform fixedPos;
     // Start is called before the first frame update
     void Start()
     {
@@ -46,6 +47,7 @@ public class PlayerMovement : MonoBehaviour
         else
         {
             lineRenderer.enabled = true;
+            if(fixedPos!=null) transform.position = fixedPos.position;
         }
         animator.SetBool("isMoving", isMoving);
     }
@@ -70,6 +72,11 @@ public class PlayerMovement : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Ground"))
         {
+            GameObject g = new GameObject("FixedPosition");
+            fixedPos = g.transform;
+            fixedPos.position = rigid2D.position;
+            fixedPos.SetParent(other.gameObject.transform);
+
             //isMoving = false;
             //other.gameObject.layer = defaultLayerValue;
         }
@@ -90,6 +97,8 @@ public class PlayerMovement : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Ground"))
         {
+            fixedPos.SetParent(null);
+            fixedPos = null;
             //other.gameObject.layer = sittingLayerValue;
         }
     }
