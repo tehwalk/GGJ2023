@@ -21,6 +21,7 @@ public class MainMenuUI : MonoBehaviour
     void Start()
     {
         Time.timeScale = 1;
+        Cursor.visible = true;
         playButton.onClick.AddListener(StartGame);
         //creditsButton.onClick.AddListener();				
         exitButton.onClick.AddListener(ExitGame);

@@ -36,10 +36,10 @@ public class PlayerMovement : MonoBehaviour
         }
         if (isMoving == true)
         {
-            
+
             lineRenderer.enabled = false;
             rigid2D.position = Vector2.MoveTowards(rigid2D.position, target, speed * Time.deltaTime);
-            if(VectorAppox(rigid2D.position, target))
+            if (VectorAppox(rigid2D.position, target))
             {
                 isMoving = false;
             }
@@ -47,7 +47,7 @@ public class PlayerMovement : MonoBehaviour
         else
         {
             lineRenderer.enabled = true;
-            if(fixedPos!=null) transform.position = fixedPos.position;
+            if (fixedPos != null) transform.position = fixedPos.position;
         }
         animator.SetBool("isMoving", isMoving);
     }
@@ -97,8 +97,12 @@ public class PlayerMovement : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Ground"))
         {
-            fixedPos.SetParent(null);
-            fixedPos = null;
+            if (fixedPos != null)
+            {
+                fixedPos.SetParent(null);
+                fixedPos = null;
+                Destroy(GameObject.Find("FixedPosition"));
+            }
             //other.gameObject.layer = sittingLayerValue;
         }
     }
