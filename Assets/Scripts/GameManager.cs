@@ -64,9 +64,11 @@ public class GameManager : MonoBehaviour {
 	public void TogglePause(bool isPauseMenuOpen) {
 		if (isPauseMenuOpen == true) {
 			Time.timeScale = 0;
+			Cursor.visible = true;
 		}
 		else {
 			Time.timeScale = 1;
+			Cursor.visible = false;
 		}
 	}
 

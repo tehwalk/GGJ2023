@@ -27,13 +27,14 @@ public class TargetMoveBehaviour : MonoBehaviour
         //transform.position = Vector2.MoveTowards(transform.position, nextTarget.position, speed * Time.deltaTime);
         transform.position = Vector2.Lerp(transform.position, nextTarget.position, speed * Time.deltaTime);
         //yield return new WaitUntil(() => VectorAppox(transform.position, nextTarget.position));
-        yield return new WaitUntil(() => transform.position == nextTarget.position);
+        yield return new WaitUntil(() => VectorAppox(transform.position, nextTarget.position));
+        Debug.Log("i am here");
         i++;
         yield return new WaitForSeconds(waitTime);
     }
 
     bool VectorAppox(Vector2 a, Vector2 b)
     {
-        return Mathf.Approximately(a.x, b.x) && Mathf.Approximately(a.y, b.y);
+        return Mathf.Approximately(Mathf.Round(a.x), Mathf.Round(b.x)) && Mathf.Approximately(Mathf.Round(a.y), Mathf.Round(b.y));
     }
 }
