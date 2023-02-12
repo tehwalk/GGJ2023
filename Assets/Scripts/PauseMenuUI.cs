@@ -16,7 +16,7 @@ public class PauseMenuUI : MonoBehaviour {
 	void Start() {
 		basePanel.SetActive(isOpen);
 		continueButton.onClick.AddListener(TogglePanel);
-		quitButton.onClick.AddListener(RestartGame); 
+		quitButton.onClick.AddListener(RestartGame);
 	}
 
 	void Update() {
@@ -26,9 +26,12 @@ public class PauseMenuUI : MonoBehaviour {
 	void TogglePanel() {
 		isOpen = !isOpen;
 		basePanel.SetActive(isOpen);
-        GameManager.Instance.TogglePause(isOpen);
+		GameManager.Instance.TogglePause(isOpen);
 		AudioManager.instance.PlayInteractionSound(toggleClip, 0.5f);
 	}
 
-	void RestartGame() => SceneManager.LoadScene("MainMenuScene");
+	void RestartGame() {
+		SceneManager.LoadScene("MainMenuScene");
+		Destroy(MainGameControl.instance.gameObject);
+	}
 }

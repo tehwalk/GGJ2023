@@ -5,11 +5,15 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class MainMenuUI : MonoBehaviour
-{
+public class MainMenuUI : MonoBehaviour {
     [SerializeField] Button playButton;
-    //[SerializeField] Button creditsButton;
+    [SerializeField] Button creditsButton;
     [SerializeField] Button exitButton;
+    [SerializeField] Button backButton;
+    [SerializeField] GameObject buttonsLayout;
+    [SerializeField] GameObject creditsLayout;
+    [Space]
+    [SerializeField] MainGameControl mainGameControl;
 
     public GameObject player;
     public float speed;
@@ -17,13 +21,15 @@ public class MainMenuUI : MonoBehaviour
     Vector3 buttonPos;
 
     public Animator playerAnim;
+    public bool showCredits {get; private set;}
 
     void Start()
     {
         Time.timeScale = 1;
         Cursor.visible = true;
         playButton.onClick.AddListener(StartGame);
-        //creditsButton.onClick.AddListener();				
+        creditsButton.onClick.AddListener(ToggleCredits);				
+        backButton.onClick.AddListener(ToggleCredits);				
         exitButton.onClick.AddListener(ExitGame);
         canMove = false;
     }
@@ -48,9 +54,15 @@ public class MainMenuUI : MonoBehaviour
         playerAnim.SetTrigger("Jump");
         yield return new WaitUntil(() => VectorAppox(player.transform.position, buttonPos) == true);
         canMove = false;
+
+        Instantiate(mainGameControl);
         SceneManager.LoadScene((int)SceneIndex.Scene1);
     }
-    //void DisplayCredits() { }
+    void ToggleCredits() {
+        showCredits = !showCredits;
+        buttonsLayout.SetActive(!showCredits);
+        creditsLayout.SetActive(showCredits);
+    }
 
     void ExitGame() => Application.Quit();
 
