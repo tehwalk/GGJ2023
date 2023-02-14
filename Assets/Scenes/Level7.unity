@@ -169,19 +169,27 @@ PrefabInstance:
     - target: {fileID: 658569452646918464, guid: 60fc0ac50fff60743869b50ace9e8c32, type: 3}
       propertyPath: places.Array.data[2]
       value: 
-      objectReference: {fileID: 471398008}
+      objectReference: {fileID: 697755496}
     - target: {fileID: 658569452646918464, guid: 60fc0ac50fff60743869b50ace9e8c32, type: 3}
       propertyPath: places.Array.data[3]
       value: 
-      objectReference: {fileID: 1205143823}
+      objectReference: {fileID: 471398008}
     - target: {fileID: 658569452646918464, guid: 60fc0ac50fff60743869b50ace9e8c32, type: 3}
       propertyPath: places.Array.data[4]
       value: 
-      objectReference: {fileID: 95541502}
+      objectReference: {fileID: 1205143823}
     - target: {fileID: 658569452646918464, guid: 60fc0ac50fff60743869b50ace9e8c32, type: 3}
       propertyPath: places.Array.data[5]
       value: 
-      objectReference: {fileID: 697755496}
+      objectReference: {fileID: 95541502}
+    - target: {fileID: 658569452646918465, guid: 60fc0ac50fff60743869b50ace9e8c32, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 4.26
+      objectReference: {fileID: 0}
+    - target: {fileID: 658569452646918465, guid: 60fc0ac50fff60743869b50ace9e8c32, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.08
+      objectReference: {fileID: 0}
     - target: {fileID: 658569452775496414, guid: 60fc0ac50fff60743869b50ace9e8c32, type: 3}
       propertyPath: m_RootOrder
       value: 10
