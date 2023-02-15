@@ -5733,7 +5733,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 13068830790acf1439b6ad68feda38c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nextScene: 2
+  nextScene: 7
   rootsNecessery: 6
   hitableLayerValue: 6
   scoreText: {fileID: 1275279587}

@@ -4,5 +4,7 @@ public enum SceneIndex{
     Scene2,
     Scene3,
     Scene4,
-    Scene5
+    Scene5,
+    Scene6,
+    Scene7
 }
