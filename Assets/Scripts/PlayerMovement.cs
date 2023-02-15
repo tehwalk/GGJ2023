@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.U2D.Animation;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -89,6 +90,10 @@ public class PlayerMovement : MonoBehaviour
         {
             Debug.Log("bich");
             GameManager.Instance.CutRoot();
+            if (other.gameObject.tag == "Bone")
+            {
+                Destroy(SearchAncestorWithSpriteSkin(other.transform).gameObject);
+            }
             Destroy(other.gameObject);
         }
     }
@@ -110,5 +115,27 @@ public class PlayerMovement : MonoBehaviour
     bool VectorAppox(Vector2 a, Vector2 b)
     {
         return Mathf.Approximately(a.x, b.x) && Mathf.Approximately(a.y, b.y);
+    }
+
+    Transform SearchAncestorWithSpriteSkin(Transform t)
+    {
+        Transform currentTransform = t;
+
+        for (int i = 0; i < 100; i++)
+        {
+            Transform parentTransform = currentTransform.parent;
+
+            if (parentTransform.TryGetComponent<SpriteSkin>(out SpriteSkin skin))
+            {
+                //Do something with your parent transform
+                return parentTransform;
+                //break;
+            }
+            else
+            {
+                currentTransform = parentTransform;
+            }
+        }
+        return null;
     }
 }
