@@ -5363,7 +5363,7 @@ Camera:
   far clip plane: 1000
   field of view: 34
   orthographic: 1
-  orthographic size: 7
+  orthographic size: 7.05
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -5887,7 +5887,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 13068830790acf1439b6ad68feda38c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nextScene: 6
+  nextScene: 7
   rootsNecessery: 4
   hitableLayerValue: 6
   scoreText: {fileID: 1275279587}
@@ -8117,6 +8117,14 @@ PrefabInstance:
     - target: {fileID: 2665893273803608842, guid: 49b7945869ec7f34cad92ad10a6ba1dc, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 90
+      objectReference: {fileID: 0}
+    - target: {fileID: 4036989165835141257, guid: 49b7945869ec7f34cad92ad10a6ba1dc, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4036989165835141257, guid: 49b7945869ec7f34cad92ad10a6ba1dc, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.01
       objectReference: {fileID: 0}
     - target: {fileID: 8346550085690871350, guid: 49b7945869ec7f34cad92ad10a6ba1dc, type: 3}
       propertyPath: m_Enabled

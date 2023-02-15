@@ -9,6 +9,9 @@ EditorBuildSettings:
     path: Assets/Scenes/MainMenuScene.unity
     guid: 279dd02fb46569d46b705c8f581e90ab
   - enabled: 1
+    path: Assets/Scenes/OpeningCutscene.unity
+    guid: d0ddd3742e5792d49a5a7ff89cb5469b
+  - enabled: 1
     path: Assets/Scenes/Level1.unity
     guid: 6dd4eec9d296bcb409031aa55257728f
   - enabled: 1
@@ -29,4 +32,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Level7.unity
     guid: 9c188067cc19ea9458c88154eb240e8c
+  - enabled: 1
+    path: Assets/Scenes/ClosingCutscene.unity
+    guid: 15bace1e9438c3b42a1ad324febe02fe
   m_configObjects: {}

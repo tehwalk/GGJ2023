@@ -1,11 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class MainMenuUI : MonoBehaviour {
+public class MainMenuUI : MonoBehaviour
+{
     [SerializeField] Button playButton;
     [SerializeField] Button creditsButton;
     [SerializeField] Button exitButton;
@@ -14,6 +14,7 @@ public class MainMenuUI : MonoBehaviour {
     [SerializeField] GameObject creditsLayout;
     [Space]
     [SerializeField] MainGameControl mainGameControl;
+    [SerializeField] SceneIndex nextScene;
 
     public GameObject player;
     public float speed;
@@ -21,15 +22,15 @@ public class MainMenuUI : MonoBehaviour {
     Vector3 buttonPos;
 
     public Animator playerAnim;
-    public bool showCredits {get; private set;}
+    public bool showCredits { get; private set; }
 
     void Start()
     {
         Time.timeScale = 1;
         Cursor.visible = true;
         playButton.onClick.AddListener(StartGame);
-        creditsButton.onClick.AddListener(ToggleCredits);				
-        backButton.onClick.AddListener(ToggleCredits);				
+        creditsButton.onClick.AddListener(ToggleCredits);
+        backButton.onClick.AddListener(ToggleCredits);
         exitButton.onClick.AddListener(ExitGame);
         canMove = false;
     }
@@ -56,9 +57,10 @@ public class MainMenuUI : MonoBehaviour {
         canMove = false;
 
         Instantiate(mainGameControl);
-        SceneManager.LoadScene((int)SceneIndex.Scene1);
+        SceneManager.LoadScene((int)nextScene);
     }
-    void ToggleCredits() {
+    void ToggleCredits()
+    {
         showCredits = !showCredits;
         buttonsLayout.SetActive(!showCredits);
         creditsLayout.SetActive(showCredits);
