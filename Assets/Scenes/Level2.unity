@@ -5012,6 +5012,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1981104953}
     m_Modifications:
+    - target: {fileID: 83891966699072438, guid: 49b7945869ec7f34cad92ad10a6ba1dc, type: 3}
+      propertyPath: m_SortingOrder
+      value: -1
+      objectReference: {fileID: 0}
     - target: {fileID: 1897809999137991033, guid: 49b7945869ec7f34cad92ad10a6ba1dc, type: 3}
       propertyPath: m_Name
       value: MovingRoot7
@@ -5676,6 +5680,10 @@ PrefabInstance:
     - target: {fileID: 9188980397597271277, guid: 561ded59cd3d6914ab254938d20626d8, type: 3}
       propertyPath: m_Layer
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9188980397597271280, guid: 561ded59cd3d6914ab254938d20626d8, type: 3}
+      propertyPath: m_SortingOrder
+      value: -1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
