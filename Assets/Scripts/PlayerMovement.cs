@@ -88,13 +88,20 @@ public class PlayerMovement : MonoBehaviour
         }
         else if (other.gameObject.layer == hitableLayerValue)
         {
-            Debug.Log("bich");
-            GameManager.Instance.CutRoot();
+            //Debug.Log("bich");
+
             if (other.gameObject.tag == "Bone")
             {
-                Destroy(SearchAncestorWithSpriteSkin(other.transform).gameObject);
+                // Destroy(SearchAncestorWithSpriteSkin(other.transform).gameObject);
+                SearchAncestorWithIKRoot(other.transform).GetComponent<IKRootBehaviour>().DestructRoot();
+                Debug.Log("Bone hit!");
             }
-            Destroy(other.gameObject);
+            else
+            {
+                Destroy(other.gameObject);
+                GameManager.Instance.CutRoot();
+            }
+
         }
     }
 
@@ -117,7 +124,7 @@ public class PlayerMovement : MonoBehaviour
         return Mathf.Approximately(a.x, b.x) && Mathf.Approximately(a.y, b.y);
     }
 
-    Transform SearchAncestorWithSpriteSkin(Transform t)
+    Transform SearchAncestorWithIKRoot(Transform t)
     {
         Transform currentTransform = t;
 
@@ -125,7 +132,7 @@ public class PlayerMovement : MonoBehaviour
         {
             Transform parentTransform = currentTransform.parent;
 
-            if (parentTransform.TryGetComponent<SpriteSkin>(out SpriteSkin skin))
+            if (parentTransform.TryGetComponent<IKRootBehaviour>(out IKRootBehaviour root))
             {
                 //Do something with your parent transform
                 return parentTransform;
