@@ -14,18 +14,19 @@ public class PlayerMovement : MonoBehaviour
     Rigidbody2D rigid2D;
     Animator animator;
     Vector3 mousePos, target;
-    bool isMoving = false;
-    Transform fixedPos;
+    bool isMoving = false, isColliding = false;
+    GameObject targetPos;
     // Start is called before the first frame update
     void Start()
     {
         rigid2D = GetComponent<Rigidbody2D>();
         lineRenderer = GetComponent<LineRenderer>();
         animator = GetComponentInChildren<Animator>();
+
+
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Update()
     {
         mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         Debug.DrawLine(transform.position, mousePos);
@@ -35,12 +36,17 @@ public class PlayerMovement : MonoBehaviour
         {
             PickPosition();
         }
+    }
+
+    // Update is called once per frame
+    void FixedUpdate()
+    {
         if (isMoving == true)
         {
 
             lineRenderer.enabled = false;
-            rigid2D.position = Vector2.MoveTowards(rigid2D.position, target, speed * Time.deltaTime);
-            if (VectorAppox(rigid2D.position, target))
+            rigid2D.position = Vector2.MoveTowards(rigid2D.position, targetPos.transform.position, speed * Time.deltaTime);
+            if (VectorAppox(rigid2D.position, targetPos.transform.position) && isColliding == true)
             {
                 isMoving = false;
             }
@@ -48,7 +54,9 @@ public class PlayerMovement : MonoBehaviour
         else
         {
             lineRenderer.enabled = true;
-            if (fixedPos != null) transform.position = fixedPos.position;
+            if (targetPos != null)
+                rigid2D.position = Vector2.Lerp(rigid2D.position, targetPos.transform.position, speed * Time.deltaTime);
+            //transform.position = fixedPos.position;
         }
         animator.SetBool("isMoving", isMoving);
     }
@@ -60,11 +68,13 @@ public class PlayerMovement : MonoBehaviour
         if (sit.collider != null)
         {
             Debug.Log(sit.point);
-            //transform.position = Vector2.MoveTowards(transform.position, sit.point, speed * Time.deltaTime);
-            //transform.position = sit.point;
-            target = sit.point;
-            isMoving = true;
+            targetPos = new GameObject("FixedPosition");
+            targetPos.transform.SetParent(sit.collider.transform);
+            targetPos.transform.position = sit.point;
+            //target = sit.point;
             animator.SetTrigger("Jump");
+            isMoving = true;
+
         }
 
     }
@@ -73,11 +83,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Ground"))
         {
-            GameObject g = new GameObject("FixedPosition");
-            fixedPos = g.transform;
-            fixedPos.position = rigid2D.position;
-            fixedPos.SetParent(other.gameObject.transform);
-
+            //isColliding = true;
             //isMoving = false;
             //other.gameObject.layer = defaultLayerValue;
         }
@@ -94,7 +100,7 @@ public class PlayerMovement : MonoBehaviour
             {
                 // Destroy(SearchAncestorWithSpriteSkin(other.transform).gameObject);
                 SearchAncestorWithIKRoot(other.transform).GetComponent<IKRootBehaviour>().DestructRoot();
-                Debug.Log("Bone hit!");
+                //Debug.Log("Bone hit!");
             }
             else
             {
@@ -105,16 +111,26 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+    private void OnCollisionStay2D(Collision2D other)
+    {
+        if (other.gameObject.CompareTag("Ground"))
+        {
+            isColliding = true;
+            //isMoving = true;
+
+            //other.gameObject.layer = sittingLayerValue;
+        }
+    }
+
+
+
     private void OnCollisionExit2D(Collision2D other)
     {
         if (other.gameObject.CompareTag("Ground"))
         {
-            if (fixedPos != null)
-            {
-                fixedPos.SetParent(null);
-                fixedPos = null;
-                Destroy(GameObject.Find("FixedPosition"));
-            }
+            isColliding = false;
+            //isMoving = true;
+
             //other.gameObject.layer = sittingLayerValue;
         }
     }
