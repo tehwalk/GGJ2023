@@ -47,9 +47,14 @@ public class CutsceneManager : MonoBehaviour
 
     void GoToNextScene()
     {
-        if(nextScene == SceneIndex.MainMenu) SceneManager.LoadScene((int)nextScene);
+        if(nextScene == SceneIndex.MainMenu) 
+        {
+            Destroy(gameControl);
+            SceneManager.LoadScene((int)nextScene);
+        }
         else
         {
+           gameControl.ShowClickText();
            gameControl.GoToNextLevel(nextScene);
         }
     }

@@ -16,6 +16,7 @@ public class GameManager : MonoBehaviour
     public int hitableLayerValue;
     [SerializeField] private TextMeshProUGUI scoreText;
     MainGameControl gameControl;
+    public bool IsPaused { get; private set; }
 
     // Start is called before the first frame update
     private void Awake()
@@ -28,7 +29,7 @@ public class GameManager : MonoBehaviour
     }
     void Start()
     {
-        Cursor.visible = false;
+        //Cursor.visible = false;
         UpdateScoreText();
         //rootsNecessery = FindGameObjectsInLayer(hitableLayerValue);
 
@@ -69,8 +70,13 @@ public class GameManager : MonoBehaviour
 
     public void NextLevel()
     {
-        //SceneManager.LoadScene((int)nextScene);
-        if (nextScene == SceneIndex.ClosingCutscene) SceneManager.LoadScene((int)nextScene);
+        //if we won
+        if (nextScene == SceneIndex.ClosingCutscene)
+        {
+            gameControl.HideClickText();
+            gameControl.PassHighScore();
+            SceneManager.LoadScene((int)nextScene);
+        }
         else gameControl.GoToNextLevel(nextScene);
     }
 
@@ -80,19 +86,21 @@ public class GameManager : MonoBehaviour
     }
 
 
-    public void TogglePause(bool isPauseMenuOpen)
+    /*public void TogglePause(bool isPauseMenuOpen)
     {
         if (isPauseMenuOpen == true)
         {
+            IsPaused = true;
             Time.timeScale = 0;
-            Cursor.visible = true;
+            
         }
         else
         {
+            IsPaused = false;
             Time.timeScale = 1;
-            Cursor.visible = false;
+          
         }
-    }
+    }*/
 
     void UpdateScoreText()
     {

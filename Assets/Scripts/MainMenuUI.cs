@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using TMPro;
 
 public class MainMenuUI : MonoBehaviour
 {
@@ -12,16 +13,17 @@ public class MainMenuUI : MonoBehaviour
     [SerializeField] Button backButton;
     [SerializeField] GameObject buttonsLayout;
     [SerializeField] GameObject creditsLayout;
+    [SerializeField] TextMeshProUGUI highScoreText;
     [Space]
     [SerializeField] MainGameControl mainGameControl;
     [SerializeField] SceneIndex nextScene;
 
-    public GameObject player;
-    public float speed;
+    [SerializeField] GameObject player;
+    [SerializeField] float speed;
     bool canMove;
     Vector3 buttonPos;
 
-    public Animator playerAnim;
+    [SerializeField] Animator playerAnim;
     public bool showCredits { get; private set; }
 
     void Start()
@@ -33,6 +35,11 @@ public class MainMenuUI : MonoBehaviour
         backButton.onClick.AddListener(ToggleCredits);
         exitButton.onClick.AddListener(ExitGame);
         canMove = false;
+        if(PlayerPrefs.HasKey("HighScore"))
+        {
+            highScoreText.text = "WON WITH FEWEST MOVES: " + PlayerPrefs.GetInt("HighScore").ToString();
+        }
+        
     }
 
     private void Update()

@@ -26,7 +26,7 @@ public class PauseMenuUI : MonoBehaviour {
 	void TogglePanel() {
 		isOpen = !isOpen;
 		basePanel.SetActive(isOpen);
-		GameManager.Instance.TogglePause(isOpen);
+		//GameManager.Instance.TogglePause(isOpen);
 		AudioManager.instance.PlayInteractionSound(toggleClip, 0.5f);
 	}
 
