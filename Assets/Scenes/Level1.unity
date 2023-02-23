@@ -319,7 +319,7 @@ TilemapRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 9f8e63ad8bad89e4cba651dee0446529, type: 2}
+  - {fileID: 2100000, guid: 8d4c7aa62d9cab64186e4dc4805f8995, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -6104,6 +6104,8 @@ MonoBehaviour:
   rootsNecessery: 5
   hitableLayerValue: 6
   scoreText: {fileID: 1275279587}
+  circle: {fileID: 0}
+  loadTime: 0.5
 --- !u!4 &674079923
 Transform:
   m_ObjectHideFlags: 0

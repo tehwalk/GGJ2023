@@ -3,16 +3,19 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using TMPro;
+using DG.Tweening;
+
 
 public class GameManager : MonoBehaviour
 {
     private static GameManager _instance;
     public static GameManager Instance { get { return _instance; } }
-    [SerializeField] public SceneIndex nextScene;
+    [SerializeField] private SceneIndex nextScene;
     public int rootsNecessery;
     private int rootsCut = 0;
     public int hitableLayerValue;
     [SerializeField] private TextMeshProUGUI scoreText;
+    MainGameControl gameControl;
 
     // Start is called before the first frame update
     private void Awake()
@@ -20,13 +23,15 @@ public class GameManager : MonoBehaviour
         if (_instance != null && _instance != this)
             _instance = null;
         _instance = this;
-        Time.timeScale = 1;
+
+        gameControl = MainGameControl.Instance;
     }
     void Start()
     {
         Cursor.visible = false;
-        //rootsNecessery = FindGameObjectsInLayer(hitableLayerValue);
         UpdateScoreText();
+        //rootsNecessery = FindGameObjectsInLayer(hitableLayerValue);
+
     }
 
     int FindGameObjectsInLayer(int layervalue)
@@ -53,7 +58,7 @@ public class GameManager : MonoBehaviour
     {
         rootsCut++;
         UpdateScoreText();
-        if (AudioManager.instance!=null) AudioManager.instance.PlayCutClip();
+        if (AudioManager.instance != null) AudioManager.instance.PlayCutClip();
 
         if (rootsCut >= rootsNecessery)
         {
@@ -64,13 +69,16 @@ public class GameManager : MonoBehaviour
 
     public void NextLevel()
     {
-        SceneManager.LoadScene((int)nextScene);
+        //SceneManager.LoadScene((int)nextScene);
+        if (nextScene == SceneIndex.ClosingCutscene) SceneManager.LoadScene((int)nextScene);
+        else gameControl.GoToNextLevel(nextScene);
     }
 
     public void ResetScene()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
+
 
     public void TogglePause(bool isPauseMenuOpen)
     {

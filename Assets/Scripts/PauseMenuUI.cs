@@ -32,6 +32,6 @@ public class PauseMenuUI : MonoBehaviour {
 
 	void RestartGame() {
 		SceneManager.LoadScene("MainMenuScene");
-		Destroy(MainGameControl.instance.gameObject);
+		Destroy(MainGameControl.Instance.gameObject);
 	}
 }

@@ -139,6 +139,8 @@ MonoBehaviour:
   defaultLayerValue: 0
   hitableLayerValue: 6
   speed: 30
+  vfxPrefab: {fileID: 2633580424713695156, guid: 4c43c79cb15f4bd4f88896e82ad56a75, type: 3}
+  particleLifeTime: 1
 --- !u!120 &3382617527102754327
 LineRenderer:
   serializedVersion: 2

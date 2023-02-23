@@ -13,10 +13,12 @@ public class CutsceneManager : MonoBehaviour
     //public Image blackImage;
     [SerializeField] float fadeTime, waitTime;
     [SerializeField] SceneIndex nextScene;
+    MainGameControl gameControl;
     // Start is called before the first frame update
 
     private void Awake()
     {
+        gameControl = MainGameControl.Instance;
         if (skipButton != null) skipButton.onClick.AddListener(GoToNextScene);
     }
     void Start()
@@ -45,6 +47,10 @@ public class CutsceneManager : MonoBehaviour
 
     void GoToNextScene()
     {
-        SceneManager.LoadScene((int)nextScene);
+        if(nextScene == SceneIndex.MainMenu) SceneManager.LoadScene((int)nextScene);
+        else
+        {
+           gameControl.GoToNextLevel(nextScene);
+        }
     }
 }

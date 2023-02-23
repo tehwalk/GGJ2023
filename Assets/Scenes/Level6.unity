@@ -5669,6 +5669,8 @@ MonoBehaviour:
   rootsNecessery: 6
   hitableLayerValue: 6
   scoreText: {fileID: 1275279587}
+  circle: {fileID: 0}
+  loadTime: 0.5
 --- !u!4 &674079923
 Transform:
   m_ObjectHideFlags: 0

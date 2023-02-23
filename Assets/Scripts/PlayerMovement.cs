@@ -8,22 +8,23 @@ public class PlayerMovement : MonoBehaviour
     //public LayerMask def, ignore;
     //public int layerDefalut = 0;
     public LayerMask sittingLayer, defaultLayer, hitableLayer;
-    public int sittingLayerValue, defaultLayerValue, hitableLayerValue;
-    public float speed = 3;
+    [SerializeField] int sittingLayerValue, defaultLayerValue, hitableLayerValue;
+    [SerializeField] float speed = 3;
+    [SerializeField] GameObject vfxPrefab;
+    [SerializeField] float particleLifeTime;
     LineRenderer lineRenderer;
     Rigidbody2D rigid2D;
     Animator animator;
-    Vector3 mousePos, target;
+    Vector3 mousePos, target, previousTargetPos;
     bool isMoving = false, isColliding = false;
     GameObject targetPos;
+    
     // Start is called before the first frame update
     void Start()
     {
         rigid2D = GetComponent<Rigidbody2D>();
         lineRenderer = GetComponent<LineRenderer>();
         animator = GetComponentInChildren<Animator>();
-
-
     }
 
     private void Update()
@@ -68,6 +69,7 @@ public class PlayerMovement : MonoBehaviour
         if (sit.collider != null)
         {
             Debug.Log(sit.point);
+           // previousTargetPos = transform.position;
             targetPos = new GameObject("FixedPosition");
             targetPos.transform.SetParent(sit.collider.transform);
             targetPos.transform.position = sit.point;
@@ -89,8 +91,9 @@ public class PlayerMovement : MonoBehaviour
         }
         else if (other.gameObject.CompareTag("Death"))
         {
-            Destroy(gameObject);
-            GameManager.Instance.ResetScene();
+           /* Destroy(gameObject);
+            GameManager.Instance.ResetScene();*/
+            StartCoroutine(PlayerDeath());
         }
         else if (other.gameObject.layer == hitableLayerValue)
         {
@@ -109,6 +112,16 @@ public class PlayerMovement : MonoBehaviour
             }
 
         }
+    }
+
+    IEnumerator PlayerDeath()
+    {
+        GetComponentInChildren<SpriteRenderer>().enabled = false;
+        rigid2D.simulated = false;
+        GameObject particle = Instantiate(vfxPrefab, transform.position, Quaternion.identity);
+        yield return new WaitForSeconds(particleLifeTime);
+        Destroy(particle);
+        GameManager.Instance.ResetScene();
     }
 
     private void OnCollisionStay2D(Collision2D other)
