@@ -25,11 +25,12 @@ public class MainMenuUI : MonoBehaviour
 
     [SerializeField] Animator playerAnim;
     public bool showCredits { get; private set; }
-
+    
     void Start()
     {
         Time.timeScale = 1;
         Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.Confined;
         playButton.onClick.AddListener(StartGame);
         creditsButton.onClick.AddListener(ToggleCredits);
         backButton.onClick.AddListener(ToggleCredits);
